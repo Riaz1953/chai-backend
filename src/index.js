@@ -3,14 +3,24 @@ import { DB_NAME } from "./constants.js";
 import express from "express";
 import dns from "node:dns";
 import dotenv from "dotenv";
+import connectDb from "./db/index.js";
 import connectDB from "./db/index.js";
+import { error } from "node:console";
 dotenv.config({
   path: "./.env",
 });
 dns.setServers(["1.1.1.1", "1.0.0.1"]);
 const app = express();
 
-connectDB();
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+      console.log(`Server is running at port: ${process.env.PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log("MONGODB Connection Failed", error);
+  });
 
 /*
 (async () => {
