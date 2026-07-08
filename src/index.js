@@ -3,14 +3,14 @@ import { DB_NAME } from "./constants.js";
 import express from "express";
 import dns from "node:dns";
 import dotenv from "dotenv";
-import connectDb from "./db/index.js";
 import connectDB from "./db/index.js";
 import { error } from "node:console";
+import { app } from "./app.js";
 dotenv.config({
   path: "./.env",
 });
 dns.setServers(["1.1.1.1", "1.0.0.1"]);
-const app = express();
+// const app = express();
 
 connectDB()
   .then(() => {
